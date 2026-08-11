@@ -27,17 +27,17 @@ const INKS = {
 };
 
 const SECTIONS = [
-    { name: "Map 1", start: 0, end: 24, theme: 'fundamentals', lore: "Unlocked Mechanic: Basic Line Drawing." },
-    { name: "Map 2", start: 25, end: 49, theme: 'riverbed', lore: "Unlocked Mechanic: Stone Obstacles." },
-    { name: "Map 3", start: 50, end: 99, theme: 'checkpoints', lore: "Unlocked Mechanic: Waypoints." },
-    { name: "Map 4", start: 100, end: 149, theme: 'void', lore: "Unlocked Mechanic: Gridless Mode." },
-    { name: "Map 5", start: 150, end: 199, theme: 'cassiopeia', lore: "Unlocked Mechanic: Color Prisms." },
-    { name: "Map 6", start: 200, end: 249, theme: 'portals', lore: "Unlocked Mechanic: Teleportation Portals." },
-    { name: "Map 7", start: 250, end: 299, theme: 'currents', lore: "Unlocked Mechanic: Directional Currents." },
-    { name: "Map 8", start: 300, end: 349, theme: 'locks', lore: "Unlocked Mechanic: Keys and Doors." },
-    { name: "Map 9", start: 350, end: 399, theme: 'frost', lore: "Unlocked Mechanic: Fragile Ice." },
-    { name: "Map 10", start: 400, end: 449, theme: 'phantom', lore: "Unlocked Mechanic: Shifting Nodes." },
-    { name: "Map 11", start: 450, end: 499, theme: 'zenith', lore: "Unlocked Mechanic: Cosmic Dust." }
+    { name: "Ursa Major", start: 0, end: 24, theme: 'fundamentals', lore: "Unlocked Mechanic: Basic Line Drawing." },
+    { name: "Orion", start: 25, end: 49, theme: 'riverbed', lore: "Unlocked Mechanic: Stone Obstacles." },
+    { name: "Scorpius", start: 50, end: 99, theme: 'checkpoints', lore: "Unlocked Mechanic: Waypoints." },
+    { name: "Cygnus", start: 100, end: 149, theme: 'void', lore: "Unlocked Mechanic: Gridless Mode." },
+    { name: "Cassiopeia", start: 150, end: 199, theme: 'cassiopeia', lore: "Unlocked Mechanic: Color Prisms." },
+    { name: "Leo", start: 200, end: 249, theme: 'portals', lore: "Unlocked Mechanic: Teleportation Portals." },
+    { name: "Pegasus", start: 250, end: 299, theme: 'currents', lore: "Unlocked Mechanic: Directional Currents." },
+    { name: "Draco", start: 300, end: 349, theme: 'locks', lore: "Unlocked Mechanic: Keys and Doors." },
+    { name: "Taurus", start: 350, end: 399, theme: 'frost', lore: "Unlocked Mechanic: Fragile Ice." },
+    { name: "Canis Major", start: 400, end: 449, theme: 'phantom', lore: "Unlocked Mechanic: Shifting Nodes." },
+    { name: "Hercules", start: 450, end: 499, theme: 'zenith', lore: "Unlocked Mechanic: Cosmic Dust." }
 ];
 
 /* CONSTELLATION MAP DATA */
