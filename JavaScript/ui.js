@@ -363,10 +363,24 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnPlayGame) {
         let newPlayBtn = btnPlayGame.cloneNode(true); btnPlayGame.parentNode.replaceChild(newPlayBtn, btnPlayGame);
         newPlayBtn.addEventListener('click', () => {
-            if (!currentUser && !window.guestTutorialSeen && typeof showWelcomeTutorial === 'function') {
-                window.guestTutorialSeen = true; 
-                showWelcomeTutorial(() => { if (window.ui) window.ui.showLevelSelect(); });
-            } else if (window.ui) { window.ui.showLevelSelect(); }
+            let hasSeenTutorial = localStorage.getItem('sc_tutorial_seen') === 'true';
+            
+            if (currentUser) {
+                // LOGGED IN: Check browser memory to see if they've ever watched it
+                if (!hasSeenTutorial) {
+                    showWelcomeTutorial(() => { if (window.ui) window.ui.showLevelSelect(); });
+                } else {
+                    if (window.ui) window.ui.showLevelSelect();
+                }
+            } else {
+                // GUEST: Force tutorial once per session (resets when tab is closed)
+                if (!window.guestTutorialSeen) {
+                    window.guestTutorialSeen = true; 
+                    showWelcomeTutorial(() => { if (window.ui) window.ui.showLevelSelect(); });
+                } else {
+                    if (window.ui) window.ui.showLevelSelect();
+                }
+            }
             if (typeof playSound === 'function') playSound('plop');
         });
     }
