@@ -67,11 +67,19 @@ auth.onAuthStateChanged((user) => {
     const emailDisplay = document.getElementById('user-email-display');
 
     if (user) {
+        // THE FIX: Tell the local game engine the user successfully logged in!
+        currentUser = user.uid;
+        localStorage.setItem('sc_currentUser', user.uid);
+        
         if (loggedOutUI) loggedOutUI.style.display = 'none';
         if (loggedInUI) loggedInUI.style.display = 'block';
         if (emailDisplay) emailDisplay.innerText = user.email;
         loadFromCloud(user.uid);
     } else {
+        // THE FIX: Clear the local memory when they log out
+        currentUser = null;
+        localStorage.removeItem('sc_currentUser');
+        
         if (loggedOutUI) loggedOutUI.style.display = 'block';
         if (loggedInUI) loggedInUI.style.display = 'none';
     }
