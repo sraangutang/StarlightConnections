@@ -1,5 +1,5 @@
 /* =========================================================
-   HAPTICS & ASMR AUDIO
+   HAPTICS & AUDIO
    ========================================================= */
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 const PENTATONIC = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33, 659.25, 783.99, 880.00];
@@ -22,13 +22,8 @@ let ambientOsc = null; let ambientGain = null;
 function updateDynamicMusic(fillPct) {
     if (state.sfxVolume <= 0 || audioCtx.state === 'suspended') return;
     if (!ambientOsc) {
-        ambientGain = audioCtx.createGain();
-        ambientGain.connect(audioCtx.destination);
-        ambientGain.gain.value = 0;
-        ambientOsc = audioCtx.createOscillator();
-        ambientOsc.type = 'sine';
-        ambientOsc.connect(ambientGain);
-        ambientOsc.start();
+        ambientGain = audioCtx.createGain(); ambientGain.connect(audioCtx.destination); ambientGain.gain.value = 0;
+        ambientOsc = audioCtx.createOscillator(); ambientOsc.type = 'sine'; ambientOsc.connect(ambientGain); ambientOsc.start();
     }
     ambientGain.gain.setTargetAtTime((fillPct / 100) * 0.15 * state.sfxVolume, audioCtx.currentTime, 0.5);
     ambientOsc.frequency.setTargetAtTime(130.81 + (fillPct * 1.5), audioCtx.currentTime, 0.5);
@@ -67,11 +62,11 @@ function playSound(type, streak = 0) {
 }
 
 /* =========================================================
-   DYNAMIC WEATHER ENGINE
+   DYNAMIC BACKGROUND EFFECTS (PARALLAX STARS)
    ========================================================= */
 const wCanvas = document.getElementById('weather-canvas');
 const wCtx = wCanvas.getContext('2d');
-let wParticles = [];
+let bgParticles = [];
 let currentWeatherType = 'dust';
 
 function resizeWeather() { wCanvas.width = window.innerWidth; wCanvas.height = window.innerHeight; }
@@ -79,16 +74,74 @@ window.addEventListener('resize', resizeWeather);
 resizeWeather();
 
 function updateWeather(themeKey) {
-    currentWeatherType = THEMES[themeKey]?.weather || 'dust';
-    wParticles = []; wRipples = [];
-    for(let i = 0; i < 40; i++) wParticles.push({ x: Math.random() * wCanvas.width, y: Math.random() * wCanvas.height, vx: (Math.random() - 0.5) * 1, vy: (Math.random() - 0.5) * 1, size: Math.random() * 3 + 1, life: Math.random(), speed: Math.random() * 0.02 + 0.005 });
+    currentWeatherType = (window.game && window.game.currentTheme) ? window.game.currentTheme.weather : 'dust';
+    bgParticles = []; wRipples = [];
+    
+    let count = 50;
+    if (currentWeatherType === 'stars' || currentWeatherType === 'void') count = 120;
+    else if (currentWeatherType === 'snow' || currentWeatherType === 'bubbles') count = 75;
+
+    for(let i = 0; i < count; i++) {
+        bgParticles.push({
+            x: Math.random() * wCanvas.width,
+            y: Math.random() * wCanvas.height,
+            z: Math.random() * 2 + 0.5, // Z-Depth for Parallax 3D effect
+            size: Math.random() * 2 + 0.5,
+            opacity: Math.random(),
+            speedX: (Math.random() - 0.5) * 0.5,
+            speedY: (Math.random() - 0.5) * 0.5
+        });
+    }
 }
 
 function animateWeather() {
     wCtx.clearRect(0, 0, wCanvas.width, wCanvas.height);
     if (!window.game || !window.game.currentTheme) { requestAnimationFrame(animateWeather); return; }
-    wCtx.fillStyle = window.game.currentTheme.text || '#fff';
     
+    let t = Date.now() * 0.001;
+
+    bgParticles.forEach(p => {
+        if (currentWeatherType === 'stars') {
+            p.y -= (0.2 / p.z); // Objects further away (high Z) move slower
+            p.x -= (0.1 / p.z);
+            if (p.y < 0) p.y = wCanvas.height;
+            if (p.x < 0) p.x = wCanvas.width;
+            p.opacity = Math.sin(t * 2 + p.x) * 0.5 + 0.5; // Twinkling effect
+            wCtx.fillStyle = `rgba(255, 255, 255, ${p.opacity * 0.8})`;
+            
+        } else if (currentWeatherType === 'void') {
+            p.y += (1 / p.z);
+            if (p.y > wCanvas.height) { p.y = 0; p.x = Math.random() * wCanvas.width; }
+            wCtx.fillStyle = window.game.currentTheme.text;
+            wCtx.globalAlpha = 0.5 / p.z;
+            
+        } else if (currentWeatherType === 'snow') {
+            p.y += (1.5 / p.z); p.x += Math.sin(t + p.y * 0.01) * 0.5;
+            if (p.y > wCanvas.height) { p.y = -10; p.x = Math.random() * wCanvas.width; }
+            wCtx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+            
+        } else if (currentWeatherType === 'bubbles') {
+            p.y -= (1 / p.z); p.x += Math.sin(t + p.y * 0.02) * 0.3;
+            if (p.y < -10) { p.y = wCanvas.height + 10; p.x = Math.random() * wCanvas.width; }
+            wCtx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+            wCtx.beginPath(); wCtx.arc(p.x, p.y, p.size * 2, 0, Math.PI*2); wCtx.stroke();
+            wCtx.fillStyle = 'transparent';
+            
+        } else { // Dust / Embers / Wind
+            p.x += p.speedX; p.y += p.speedY;
+            if(p.x < 0 || p.x > wCanvas.width) p.speedX *= -1;
+            if(p.y < 0 || p.y > wCanvas.height) p.speedY *= -1;
+            wCtx.fillStyle = window.game.currentTheme.text;
+            wCtx.globalAlpha = 0.3;
+        }
+
+        if (wCtx.fillStyle !== 'transparent') {
+            wCtx.beginPath(); wCtx.arc(p.x, p.y, p.size / p.z, 0, Math.PI*2); wCtx.fill();
+        }
+        wCtx.globalAlpha = 1.0;
+    });
+
+    // Drawing Ripples
     for (let i = wRipples.length - 1; i >= 0; i--) {
         let r = wRipples[i];
         r.radius += 1.5; r.alpha -= 0.015;

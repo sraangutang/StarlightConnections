@@ -1,5 +1,5 @@
 /* =========================================================
-   CUSTOM MODALS & TUTORIALS
+   CUSTOM MODALS & TUTORIALS (STRIPPED BACK)
    ========================================================= */
 function showModal(title, text, callback = null, inputType = 'none') {
     document.getElementById('modal-title').innerText = title;
@@ -40,15 +40,11 @@ function showModal(title, text, callback = null, inputType = 'none') {
 
 function showWelcomeTutorial(onCompleteCallback = null) {
     const slides = [
-       "<b>WELCOME TO YOUR CRASH COURSE</b><br><br>Let's get you fully oriented before you dive into the stars. For the best experience, <b>turn up your sound</b>. The cosmos sings to those who listen.",
-        "<b>THE OBJECTIVE</b><br><br>Your goal is simple: Draw a continuous line to connect the matching colored nodes on the grid.",
-        "<b>THE GOLDEN RULE</b><br><br>You MUST fill <b>100%</b> of the empty grid tiles to clear the board. You cannot leave a single square empty, and your lines can NEVER cross each other.",
-        "<b>CONTROLS & MISTAKES</b><br><br>Tap and drag to draw. If you make a mistake, simply trace backward over your line to erase it. Erasing your own line does not penalize you.",
-        "<b>STARTING THE GAME & TUTORIALS</b><br><br>To play, click 'Play Game' on the menu and tap the glowing '1' on the Constellation Map! Every time a new mechanic (like Portals or Ice) appears, a tutorial will pop up right before the level starts.",
-        "<b>EARNING STARDUST</b><br><br>You are graded on a 3-Star system. Completing levels flawlessly earns you max Stardust! However, using a Hint or resetting the board lowers your final star rating.",
-        "<b>THE STARDUST SHOP</b><br><br>Spend your hard-earned Stardust in the Shop! You can buy premium Ink Colors (like Neon or Cosmic Stardust), beautiful animated Background Themes, or extra Hints for when you get stuck.",
-        "<b>SETTINGS & SAVING</b><br><br>In the Settings menu, you can toggle <b>Dark Mode</b>, equip your purchased Themes/Inks, and most importantly: <b>Create an Account</b>. Guest data is permanently lost when you close the app, so save your progress!",
-        "<b>YOU ARE READY</b><br><br>Take your time, map out your routes in your head before drawing, and remember... leave no empty space behind."
+        "<b>How to Play</b><br><br>Connect matching colors with a continuous line.",
+        "<b>Fill the Grid</b><br><br>Every empty tile on the board must be filled. Lines cannot cross each other.",
+        "<b>Controls</b><br><br>Tap and drag to draw. Trace backward over your line to erase.",
+        "<b>Stardust</b><br><br>Earn 3 stars for flawless clears. Using hints or restarting lowers your star rating.",
+        "<b>Progression</b><br><br>Spend Stardust in the Shop to unlock new themes and inks. Create an account in Settings to save your progress."
     ];
     let currentSlide = 0;
 
@@ -61,7 +57,8 @@ function showWelcomeTutorial(onCompleteCallback = null) {
     box.style.cssText = `background:var(--paper-bg); color:var(--ink-black); padding:40px; border-radius:24px; text-align:center; max-width:600px; width:90vw; box-shadow: 0 20px 50px rgba(0,0,0,0.5); max-height: 80vh; overflow-y: auto;`;
 
     const title = document.createElement('h2'); title.className = 'tutorial-title'; 
-    title.style.cssText = "font-family:'Architects Daughter', cursive; font-size:4rem; margin-top:0; margin-bottom:20px; color:var(--primary);"; title.innerText = "ORIENTATION";
+    title.style.cssText = "font-family:'Architects Daughter', cursive; font-size:4rem; margin-top:0; margin-bottom:20px; color:var(--primary);"; 
+    title.innerText = "Tutorial";
 
     const content = document.createElement('p'); content.className = 'tutorial-text'; 
     content.style.cssText = "font-size:1.4rem; margin:10px 0; line-height:1.5; font-weight:600;"; content.innerHTML = slides[currentSlide];
@@ -73,7 +70,7 @@ function showWelcomeTutorial(onCompleteCallback = null) {
         currentSlide++;
         if (currentSlide < slides.length) {
             content.innerHTML = slides[currentSlide];
-            if (currentSlide === slides.length - 1) btn.innerText = "I Understand. Let's Draw!";
+            if (currentSlide === slides.length - 1) btn.innerText = "Play!";
         } else {
             overlay.remove(); localStorage.setItem('sc_tutorial_seen', 'true'); 
             if (typeof onCompleteCallback === 'function') onCompleteCallback();
@@ -83,16 +80,16 @@ function showWelcomeTutorial(onCompleteCallback = null) {
 }
 
 const MECHANIC_SLIDES = {
-    26:  ["Welcome to The Riverbed.", "Grey Stones now appear on the map.<br><br>You cannot paint over them, but they count toward board completion.", "Flow smoothly around the obstacles!"],
-    51:  ["Welcome to The Checkpoints.", "Hollow rings have appeared on the canvas.<br><br>These are Waypoints.", "The matching color's line MUST pass through its Waypoint!"],
-    101: ["Welcome to The Void.", "The grid guidelines have faded away.", "Trust your spatial instincts. The rules remain unchanged."],
-    151: ["Welcome to Cassiopeia.", "Colored Prisms act as light filters. You can draw through them normally, but ONLY if your ink matches the Prism's color!"],
-    201: ["Welcome to The Portals.", "Enter a Warp Portal tile to instantly emerge out of its pair. Tap the exit portal to pick up the line and continue drawing!"],
-    251: ["Welcome to The Currents.", "One-way current arrows direct the flow of your line. Follow the current."],
-    301: ["Welcome to The Locks.", "Pass over a yellow Key tile to unlock matching Door gates across the board."],
-    351: ["Welcome to Frost.", "Cracked ice tiles shatter if you try to ERASE a line you drew over them. Be certain of your path before drawing!"],
-    401: ["Welcome to Phantom.", "Destination nodes shift position mid-stroke. Keep your focus sharp."],
-    451: ["Welcome to Zenith.", "Golden Cosmic Dust covers the board. ANY color can draw over them, but you MUST sweep up every single pile of dust to beat the level!"]
+    26:  ["<b>Stones</b><br><br>Draw around the grey stones. They count as filled space."],
+    51:  ["<b>Waypoints</b><br><br>Lines must pass through their matching colored rings."],
+    101: ["<b>The Void</b><br><br>The grid guidelines have been removed."],
+    151: ["<b>Prisms</b><br><br>Lines can only pass through prisms of the same color."],
+    201: ["<b>Portals</b><br><br>Enter one portal to instantly exit the matching one."],
+    251: ["<b>Currents</b><br><br>Arrows force your line to move in that direction."],
+    301: ["<b>Keys & Doors</b><br><br>Collect the yellow key to open red doors across the board."],
+    351: ["<b>Fragile Ice</b><br><br>Ice tiles will shatter if you erase a line drawn over them."],
+    401: ["<b>Shifting Nodes</b><br><br>Target nodes will move while you draw."],
+    451: ["<b>Cosmic Dust</b><br><br>Sweep up all the golden dust to complete the level."]
 };
 
 function showMechanicTutorial(levelNum, themeData) {
@@ -102,7 +99,11 @@ function showMechanicTutorial(levelNum, themeData) {
     const box = document.createElement('div'); box.className = 'tutorial-card'; 
     let boxBg = themeData.bg === 'transparent' ? '#1a237e' : themeData.bg;
     box.style.cssText = `background:${boxBg}; color:${themeData.text}; padding:50px; border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; border:3px solid ${themeData.text}; text-align:center; max-width:600px; width:90vw; box-shadow: 8px 8px 0px rgba(0,0,0,0.4); max-height: 80vh; overflow-y: auto;`;
-    const title = document.createElement('h2'); title.className = 'tutorial-title'; title.style.cssText = "font-family:'Architects Daughter', cursive; font-size:4.5rem; margin-top:0; margin-bottom:15px;"; title.innerText = "New Mechanic";
+    
+    const title = document.createElement('h2'); title.className = 'tutorial-title'; 
+    title.style.cssText = "font-family:'Architects Daughter', cursive; font-size:4.5rem; margin-top:0; margin-bottom:15px;"; 
+    title.innerText = "New Feature";
+
     const content = document.createElement('p'); content.className = 'tutorial-text'; content.style.cssText = "font-size:2.5rem; margin:10px 0; line-height:1.2;"; content.innerHTML = slides[currentSlide];
     const btn = document.createElement('button'); btn.className = 'sketch-btn'; btn.style.marginTop = '30px'; btn.style.background = themeData.text; btn.style.color = boxBg; btn.innerText = slides.length > 1 ? "Next ➔" : "Let's Draw!";
 
@@ -233,7 +234,7 @@ const ui = {
 
         if(state.pendingGlow) {
             const canvasObj = document.getElementById('constellation-canvas'); canvasObj.classList.add('angelic-glow');
-            setTimeout(() => { showModal("Sequence Completed!", "A new decrypted fragment has been added to the Inventor's Journal.", () => { canvasObj.classList.remove('angelic-glow'); }); }, 1000);
+            setTimeout(() => { showModal("Sequence Completed!", "A new puzzle fragment has been added to the Map Lore.", () => { canvasObj.classList.remove('angelic-glow'); }); }, 1000);
             state.pendingGlow = false; saveState();
         }
     },
@@ -320,7 +321,7 @@ const ui = {
     },
 
     resetProgress() {
-        showModal("Erase Progress", "Are you sure you want to burn this profile's sketchbook and start over?", () => {
+        showModal("Erase Progress", "Are you sure you want to delete this profile's save data and start over?", () => {
             maxUnlocked = 0; lastPlayedLevel = -1;
             state.stardust = 0; state.telescopes = 3; state.stars = {};
             state.inventory = { ink_watercolor: true, theme_fundamentals: true };
@@ -337,7 +338,7 @@ window.ui = ui;
 document.addEventListener('DOMContentLoaded', () => {
 
     let loadProgress = 0; const loadBar = document.getElementById('loading-bar'); const loadText = document.getElementById('loading-text'); const loadingScreen = document.getElementById('loading-screen');
-    const loadPhrases = ["Mapping constellations...", "Calibrating physics...", "Siphoning stardust...", "Folding spacetime...", "Preparing canvas..."];
+    const loadPhrases = ["Loading assets...", "Generating levels...", "Connecting database...", "Preparing UI..."];
     
     const bootInterval = setInterval(() => {
         loadProgress += Math.random() * 20 + 5;
@@ -469,4 +470,5 @@ document.addEventListener('DOMContentLoaded', () => {
     window.ui.showMainMenu();
 });
 // lyddyw bsqrd, mvsmu exvymu vofovc, oxdob NELbktcv
-// your welcome :)
+// Yes I understand you guys are too lazy to do this so here's a hint:
+// Who died in 44 BC?

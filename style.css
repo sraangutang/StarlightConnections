@@ -20,6 +20,16 @@ body, html {
     font-family: 'Nunito', sans-serif; 
     color: var(--ink-black);
     transition: background 0.8s ease, color 0.8s ease;
+    
+    /* NEW: This makes the gradients slowly shift and breathe! */
+    background-size: 200% 200% !important; 
+    animation: bgShift 25s ease-in-out infinite;
+}
+
+@keyframes bgShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 body::before, body::after {

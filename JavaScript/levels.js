@@ -1,43 +1,43 @@
 /* =========================================================
-   PALETTES, THEMES, & LORE
+   PALETTES, THEMES, & LORE (STRIPPED BACK)
    ========================================================= */
 const WATERCOLORS = ['#E63946', '#1E88E5', '#FDD835', '#43A047', '#8E24AA', '#F4511E', '#00ACC1', '#D81B60', '#3949AB', '#7CB342', '#F06292', '#FFB300'];
 
 const THEMES = {
-    fundamentals: { name: "The Fundamentals", bg: '#f4f1ea', text: '#2c2c2c', grid: 'rgba(0,0,0,0.1)', weather: 'dust', price: 0 },
-    riverbed:     { name: "The Riverbed", bg: '#e3f2fd', text: '#0d47a1', grid: 'rgba(13, 71, 161, 0.15)', weather: 'bubbles', price: 0 },
-    checkpoints:  { name: "The Checkpoints", bg: '#fff9c4', text: '#f57f17', grid: 'rgba(245, 127, 23, 0.15)', weather: 'embers', price: 0 },
+    fundamentals: { name: "Fundamentals", bg: '#f4f1ea', text: '#2c2c2c', grid: 'rgba(0,0,0,0.1)', weather: 'dust', price: 0 },
+    riverbed:     { name: "Riverbed", bg: '#e3f2fd', text: '#0d47a1', grid: 'rgba(13, 71, 161, 0.15)', weather: 'bubbles', price: 0 },
+    checkpoints:  { name: "Checkpoints", bg: '#fff9c4', text: '#f57f17', grid: 'rgba(245, 127, 23, 0.15)', weather: 'embers', price: 0 },
     void:         { name: "The Void", bg: 'transparent', text: '#c9d1d9', grid: 'transparent', weather: 'stars', price: 0 }, 
-    cassiopeia:   { name: "The Prisms", bg: '#f3e5f5', text: '#4a148c', grid: 'rgba(74, 20, 140, 0.1)', weather: 'dust', price: 0 },
-    portals:      { name: "The Portals", bg: 'transparent', text: '#e1bee7', grid: 'transparent', weather: 'void', price: 0 },
-    currents:     { name: "The Currents", bg: 'transparent', text: '#e0f7fa', grid: 'rgba(224, 247, 250, 0.1)', weather: 'wind', price: 0 },
-    locks:        { name: "The Locks", bg: 'transparent', text: '#d7ccc8', grid: 'rgba(215, 204, 200, 0.15)', weather: 'dust', price: 0 },
+    cassiopeia:   { name: "Prisms", bg: '#f3e5f5', text: '#4a148c', grid: 'rgba(74, 20, 140, 0.1)', weather: 'dust', price: 0 },
+    portals:      { name: "Portals", bg: 'transparent', text: '#e1bee7', grid: 'transparent', weather: 'void', price: 0 },
+    currents:     { name: "Currents", bg: 'transparent', text: '#e0f7fa', grid: 'rgba(224, 247, 250, 0.1)', weather: 'wind', price: 0 },
+    locks:        { name: "Locks", bg: 'transparent', text: '#d7ccc8', grid: 'rgba(215, 204, 200, 0.15)', weather: 'dust', price: 0 },
     frost:        { name: "Frost", bg: 'transparent', text: '#004d40', grid: 'rgba(0, 77, 64, 0.15)', weather: 'snow', price: 0 },
     phantom:      { name: "Phantom", bg: 'transparent', text: '#b0bec5', grid: 'rgba(176, 190, 197, 0.1)', weather: 'fog', price: 0 },
     zenith:       { name: "Zenith", bg: 'transparent', text: '#3e2723', grid: 'rgba(62, 39, 35, 0.2)', weather: 'embers', price: 0 },
     obsidian:     { name: "Obsidian Core", bg: '#0a0a0a', text: '#ffffff', grid: 'transparent', weather: 'dust', price: 4000 },
     supernova:    { name: "Supernova", bg: 'transparent', text: '#ffeb3b', grid: 'rgba(255,235,59,0.1)', weather: 'embers', price: 6000 },
-    aurora:       { name: "Aurora Borealis", bg: 'transparent', text: '#a7ffeb', grid: 'rgba(167,255,235,0.1)', weather: 'wind', price: 8000 }
+    aurora:       { name: "Aurora", bg: 'transparent', text: '#a7ffeb', grid: 'rgba(167,255,235,0.1)', weather: 'stars', price: 8000 }
 };
 
 const INKS = {
-    watercolor: { name: "Classic Watercolor", price: 0 },
-    neon:       { name: "Neon Laser", price: 3000 },
-    stardust:   { name: "Cosmic Stardust", price: 6000 }
+    watercolor: { name: "Watercolor", price: 0 },
+    neon:       { name: "Neon", price: 3000 },
+    stardust:   { name: "Stardust", price: 6000 }
 };
 
 const SECTIONS = [
-    { name: "Ursa Major", start: 0, end: 24, theme: 'fundamentals', lore: "Log 01: I found the artifact buried near the crater..." },
-    { name: "Orion", start: 25, end: 49, theme: 'riverbed', lore: "Log 02: The board is adapting. Solid stones manifest..." },
-    { name: "Scorpius", start: 50, end: 99, theme: 'checkpoints', lore: "Log 03: Waypoints have appeared. I have to route energy..." },
-    { name: "Cygnus", start: 100, end: 149, theme: 'void', lore: "Log 04: The grid vanished today. The training wheels are off..." },
-    { name: "Cassiopeia", start: 150, end: 199, theme: 'cassiopeia', lore: "Log 05: The artifact plunged into darkness today..." },
-    { name: "Leo", start: 200, end: 249, theme: 'portals', lore: "Log 06: Spatial tears on the glass. Portals..." },
-    { name: "Pegasus", start: 250, end: 299, theme: 'currents', lore: "Log 07: The engine is demanding absolute precision..." },
-    { name: "Draco", start: 300, end: 349, theme: 'locks', lore: "Log 08: Locks and keys. Security protocols..." },
-    { name: "Taurus", start: 350, end: 399, theme: 'frost', lore: "Log 09: Shattering ice. The artifact tolerates absolutely zero hesitation..." },
-    { name: "Canis Major", start: 400, end: 449, theme: 'phantom', lore: "Log 10: Ethereal ink. Time is folding on the glass..." },
-    { name: "Hercules", start: 450, end: 499, theme: 'zenith', lore: "Log 11: The Zenith. The edges of the canvas are gone..." }
+    { name: "Map 1", start: 0, end: 24, theme: 'fundamentals', lore: "Unlocked Mechanic: Basic Line Drawing." },
+    { name: "Map 2", start: 25, end: 49, theme: 'riverbed', lore: "Unlocked Mechanic: Stone Obstacles." },
+    { name: "Map 3", start: 50, end: 99, theme: 'checkpoints', lore: "Unlocked Mechanic: Waypoints." },
+    { name: "Map 4", start: 100, end: 149, theme: 'void', lore: "Unlocked Mechanic: Gridless Mode." },
+    { name: "Map 5", start: 150, end: 199, theme: 'cassiopeia', lore: "Unlocked Mechanic: Color Prisms." },
+    { name: "Map 6", start: 200, end: 249, theme: 'portals', lore: "Unlocked Mechanic: Teleportation Portals." },
+    { name: "Map 7", start: 250, end: 299, theme: 'currents', lore: "Unlocked Mechanic: Directional Currents." },
+    { name: "Map 8", start: 300, end: 349, theme: 'locks', lore: "Unlocked Mechanic: Keys and Doors." },
+    { name: "Map 9", start: 350, end: 399, theme: 'frost', lore: "Unlocked Mechanic: Fragile Ice." },
+    { name: "Map 10", start: 400, end: 449, theme: 'phantom', lore: "Unlocked Mechanic: Shifting Nodes." },
+    { name: "Map 11", start: 450, end: 499, theme: 'zenith', lore: "Unlocked Mechanic: Cosmic Dust." }
 ];
 
 /* CONSTELLATION MAP DATA */
@@ -223,7 +223,7 @@ for (let i = 1; i <= 500; i++) {
 
     LEVELS.push({
         title: `Level ${i}`, 
-        flavor: isSuperHard ? "ANOMALY DETECTED" : (isHard ? "Spacetime is warping..." : "Trace the stars."),
+        flavor: isSuperHard ? "Hard" : (isHard ? "Tricky" : ""), // No more "Anomaly Detected"
         size: baseSize, targetColors: baseColors, features: features, theme: sec.theme, isTutorial: isTut, board: null 
     });
 }
