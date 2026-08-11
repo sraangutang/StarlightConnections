@@ -468,3 +468,5 @@ document.addEventListener('DOMContentLoaded', () => {
     if(window.timeTrialManager) window.timeTrialManager.initMenu();
     window.ui.showMainMenu();
 });
+// lyddyw bsqrd, mvsmu exvymu vofovc, oxdob NELbktcv
+// your welcome :)
