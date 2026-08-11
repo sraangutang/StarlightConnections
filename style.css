@@ -1,0 +1,313 @@
+/* =========================================================
+   CSS: STARLIGHT CONNECTIONS (High Contrast & Legibility)
+   ========================================================= */
+:root {
+    --paper-bg: #FDFBF7;
+    --paper-card: #FFFFFF;
+    --ink-black: #1A1A1A; /* Darkened for better contrast */
+    --primary: #F59E0B;
+    --primary-dark: #D97706;
+    --shadow-color: rgba(0, 0, 0, 0.15);
+}
+
+* { box-sizing: border-box; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+
+body, html {
+    margin: 0; padding: 0; width: 100vw; 
+    height: 100vh; /* Fallback for older browsers */
+    height: 100dvh; /* THE FIX: Dynamic viewport height so address bars don't cut off UI! */
+    overflow: hidden; 
+    font-family: 'Nunito', sans-serif; 
+    color: var(--ink-black);
+    transition: background 0.8s ease, color 0.8s ease;
+}
+
+body::before, body::after {
+    content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; 
+    pointer-events: none; z-index: 1; transition: opacity 1s ease; opacity: 0; 
+}
+
+/* THEMES (Premium Mesh Gradient Backgrounds - High Contrast Text) */
+body.theme-fundamentals { 
+    background-color: #FDFBF7; color: #111111; 
+    background-image: radial-gradient(at 0% 0%, rgba(245, 158, 11, 0.05) 0px, transparent 50%), radial-gradient(rgba(0,0,0,0.06) 2px, transparent 2px); 
+    background-size: 100% 100%, 30px 30px; 
+}
+body.theme-riverbed { 
+    background-color: #E0F7FA; color: #003333; 
+    background-image: radial-gradient(at 20% 20%, #B2EBF2 0px, transparent 50%), radial-gradient(at 80% 80%, #80DEEA 0px, transparent 50%); 
+}
+body.theme-checkpoints { 
+    background-color: #FFFDE7; color: #4A1A00; 
+    background-image: radial-gradient(at 10% 10%, #FFECB3 0px, transparent 50%), radial-gradient(at 90% 90%, #FFE082 0px, transparent 50%); 
+}
+body.theme-void { 
+    background-color: #0A0A1A; color: #FFFFFF; 
+    background-image: radial-gradient(at 50% 50%, #1A237E 0px, transparent 60%), radial-gradient(at 100% 0%, #311B92 0px, transparent 40%); 
+}
+body.theme-cassiopeia { 
+    background-color: #F3E5F5; color: #2A004D; 
+    background-image: radial-gradient(at 30% 10%, #E1BEE7 0px, transparent 50%), radial-gradient(at 70% 90%, #CE93D8 0px, transparent 50%); 
+}
+body.theme-portals { 
+    background-color: #210F64; color: #FFFFFF; 
+    background-image: radial-gradient(at 20% 80%, #311B92 0px, transparent 60%), radial-gradient(at 80% 20%, #4A148C 0px, transparent 50%); 
+}
+body.theme-currents { 
+    background-color: #00332B; color: #FFFFFF; 
+    background-image: radial-gradient(at 10% 90%, #004D40 0px, transparent 60%), radial-gradient(at 90% 10%, #00695C 0px, transparent 50%); 
+}
+body.theme-locks { 
+    background-color: #D7CCC8; color: #2D1A11; 
+    background-image: radial-gradient(at 40% 20%, #BCAAA4 0px, transparent 50%), radial-gradient(at 60% 80%, #A1887F 0px, transparent 50%); 
+}
+body.theme-frost { 
+    background-color: #E1F5FE; color: #003366; 
+    background-image: radial-gradient(at 80% 10%, #B3E5FC 0px, transparent 50%), radial-gradient(at 20% 90%, #81D4FA 0px, transparent 50%); 
+}
+body.theme-phantom { 
+    background-color: #1C262B; color: #FFFFFF; 
+    background-image: radial-gradient(at 50% 50%, #263238 0px, transparent 70%), radial-gradient(at 0% 100%, #37474F 0px, transparent 50%); 
+}
+body.theme-zenith { 
+    background-color: #FFC107; color: #3E1F00; 
+    background-image: radial-gradient(at 30% 30%, #FFD54F 0px, transparent 60%), radial-gradient(at 80% 80%, #FFCA28 0px, transparent 50%); 
+}
+
+/* Premium Themes */
+body.theme-obsidian { 
+    background-color: #0D0D0D; color: #FFFFFF; 
+    background-image: radial-gradient(at 50% 0%, #1A1A1A 0px, transparent 50%), radial-gradient(at 50% 100%, #262626 0px, transparent 50%); 
+}
+body.theme-supernova { 
+    background-color: #3E1004; color: #FFFFFF; 
+    background-image: radial-gradient(at 50% 50%, #BF360C 0px, transparent 70%), radial-gradient(at 10% 10%, #E64A19 0px, transparent 40%); 
+}
+body.theme-aurora { 
+    background-color: #001A15; color: #FFFFFF; 
+    background-image: radial-gradient(at 20% 50%, #004D40 0px, transparent 60%), radial-gradient(at 80% 50%, #00695C 0px, transparent 50%); 
+}
+
+/* Typography */
+.accent-title { font-family: 'Architects Daughter', cursive; font-weight: 400; color: inherit; text-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+.subtitle { font-size: 1.2rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9; margin-bottom: 20px; color: inherit; }
+
+/* UI Screens & Cards */
+#ui-layer { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 10; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+
+/* Order matters! app-card shows by default, but screen hides it unless active */
+.app-card { display: flex; }
+.screen { display: none; }
+
+.app-card, .screen {
+    flex-direction: column; align-items: center; 
+    background: var(--paper-card); color: var(--ink-black);
+    padding: 40px; 
+    border-radius: 32px; 
+    box-shadow: 0 16px 40px var(--shadow-color), inset 0 2px 0 rgba(255,255,255,0.8);
+    max-height: 90vh; z-index: 50; pointer-events: auto; 
+    overflow-y: auto; overflow-x: hidden; /* THE FIX: Allows cards to scroll! */
+}
+
+/* Scrollbar styling for menus so it looks clean on mobile */
+.screen::-webkit-scrollbar, .app-card::-webkit-scrollbar { width: 6px; }
+.screen::-webkit-scrollbar-thumb, .app-card::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 10px; }
+body.dark-mode-ui .screen::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); }
+
+.screen.active { display: flex; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: slideUp 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.wide-screen { width: 90vw; max-width: 600px; }
+
+@keyframes slideUp {
+    0% { opacity: 0; transform: translate(-50%, -45%); }
+    100% { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+/* Chunky, Tactile Cozy Buttons */
+.sketch-btn { 
+    background: #F0EDE5; color: var(--ink-black);
+    border: none; border-radius: 18px; 
+    padding: 14px 26px; font-size: 1.2rem; font-weight: 800; font-family: 'Nunito', sans-serif;
+    cursor: pointer; transition: transform 0.1s, box-shadow 0.1s; 
+    box-shadow: 0 6px 0 rgba(0,0,0,0.1); 
+    width: 100%; display: flex; justify-content: center; align-items: center;
+}
+.sketch-btn:hover:not(:disabled) { transform: translateY(2px); box-shadow: 0 4px 0 rgba(0,0,0,0.1); }
+.sketch-btn:active:not(:disabled) { transform: translateY(6px); box-shadow: 0 0px 0 rgba(0,0,0,0.1); }
+.sketch-btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; transform: translateY(6px); }
+
+.sketch-btn.primary { background: var(--primary); color: white; box-shadow: 0 6px 0 var(--primary-dark); }
+.sketch-btn.primary:hover:not(:disabled) { box-shadow: 0 4px 0 var(--primary-dark); }
+.sketch-btn.danger { background: #FFEBEE; color: #D32F2F; box-shadow: 0 6px 0 #FFCDD2; }
+.sketch-btn.sm { font-size: 1rem; padding: 10px 16px; border-radius: 12px; box-shadow: 0 4px 0 rgba(0,0,0,0.1); width: auto; }
+.sketch-btn.icon-btn { width: 50px; height: 50px; padding: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+/* Inputs & Form Elements */
+.app-input {
+    background: #F0EDE5; border: none; border-radius: 12px;
+    padding: 14px; font-family: 'Nunito', sans-serif; font-size: 1.2rem; font-weight: 800;
+    color: var(--ink-black); width: 100%; outline: none; transition: box-shadow 0.2s;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+.app-input:focus { box-shadow: inset 0 2px 4px rgba(0,0,0,0.05), 0 0 0 3px var(--primary); background: #FFFFFF; }
+
+.settings-group { width: 100%; margin-bottom: 20px; display: flex; flex-direction: column; text-align: left; }
+.settings-group label { font-size: 1.1rem; font-weight: 900; margin-bottom: 8px; color: var(--ink-black); }
+
+.app-slider { width: 100%; height: 8px; border-radius: 4px; background: #E0E0E0; outline: none; -webkit-appearance: none; appearance: none; }
+.app-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; background: var(--primary); cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+
+.app-select { background: #F0EDE5; border: none; border-radius: 12px; padding: 12px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--ink-black); outline: none; width: 100%; cursor: pointer; }
+
+/* Pills & Badges */
+.stardust-pill { display: inline-flex; align-items: center; background: #FFF8E1; color: #F57F17; font-weight: 900; font-size: 1.2rem; padding: 8px 20px; border-radius: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+.progress-pill { background: rgba(255,255,255,0.8); color: var(--ink-black); padding: 6px 14px; border-radius: 12px; font-weight: 900; font-size: 1.1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+
+/* Shop & Lore Lists */
+.scroll-container { width: 100%; overflow-y: auto; padding-right: 10px; margin-top: 15px; }
+.scroll-container::-webkit-scrollbar { width: 8px; }
+.scroll-container::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 10px; }
+
+.shop-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #F9F7F1; border-radius: 16px; margin-bottom: 12px; border: 2px solid rgba(0,0,0,0.05); }
+.shop-item span { font-weight: 800; font-size: 1.1rem; color: var(--ink-black); }
+
+.lore-entry { background: #F9F7F1; border-radius: 20px; padding: 25px; margin-bottom: 20px; border-left: 6px solid var(--primary); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+.lore-title { font-family: 'Nunito', sans-serif; font-size: 1.3rem; font-weight: 900; text-transform: uppercase; margin: 0 0 10px 0; color: var(--primary); }
+.lore-text { font-size: 1.15rem; line-height: 1.6; margin: 0; font-weight: 700; color: var(--ink-black); }
+
+/* Fullscreen Map Override */
+.map-screen {
+    width: 100vw !important; height: 100vh !important; 
+    max-width: none !important; max-height: none !important; 
+    border-radius: 0 !important; border: none !important; box-shadow: none !important; 
+    background: transparent !important; padding: 30px !important; color: inherit;
+}
+
+.map-header { display: flex; justify-content: space-between; align-items: center; width: 100%; z-index: 10; }
+.map-title-card { background: var(--paper-card); padding: 12px 30px; border-radius: 24px; box-shadow: 0 8px 20px rgba(0,0,0,0.2); text-align: center; color: var(--ink-black); }
+
+#constellation-wrapper { position: relative; width: 100%; height: 70vh; flex-grow: 1; margin: 0; }
+#constellation-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; transition: filter 0.5s ease; }
+#level-grid-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; }
+
+/* Map Nodes (Clean, Readable Dots) */
+.level-btn { 
+    position: absolute; transform: translate(-50%, -50%); 
+    border-radius: 50%; background: var(--paper-card); 
+    color: #1A1A1A !important; /* This forces the text to ALWAYS be dark against the white node! */
+    border: none; box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    font-family: 'Nunito', sans-serif; font-weight: 900;
+    display: flex; flex-direction: column; justify-content: center; align-items: center; 
+    cursor: pointer; transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 2; 
+}
+
+.level-btn:not(:disabled):hover { transform: translate(-50%, -50%) scale(1.2); z-index: 10; }
+.level-btn:active:not(:disabled) { transform: translate(-50%, -45%) scale(1.1); }
+.level-btn:disabled { opacity: 0.5; box-shadow: 0 2px 4px rgba(0,0,0,0.1); cursor: not-allowed; }
+.star-rating { font-size: 0.8rem; letter-spacing: 2px; margin-top: 2px; color: var(--primary); }
+
+.angelic-glow { filter: drop-shadow(0 0 20px rgba(255,255,255,0.9)) drop-shadow(0 0 40px rgba(255,215,0,0.8)); animation: glowPulse 2s infinite alternate ease-in-out; }
+@keyframes glowPulse { 0% { filter: drop-shadow(0 0 20px rgba(255,255,255,0.8)) drop-shadow(0 0 40px rgba(255,215,0,0.5)); } 100% { filter: drop-shadow(0 0 30px rgba(255,255,255,1)) drop-shadow(0 0 60px rgba(255,215,0,1)); } }
+
+/* Game Canvas & HUD */
+#game-container { display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 20; position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; }
+#canvas-wrapper { position: relative; margin: 20px auto; display: block; }
+#game-canvas { background: transparent; cursor: crosshair; touch-action: none; z-index: 25; position: absolute; top: 0; left: 0; }
+#fx-canvas { position: absolute; top: 0; left: 0; pointer-events: none; z-index: 30; }
+#weather-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 2; pointer-events: none; }
+
+#hud { display: flex; justify-content: space-between; align-items: flex-start; width: 100%; max-width: 600px; padding: 0 20px; z-index: 25; pointer-events: none; color: inherit; }
+.hud-left { flex: 1; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+.hud-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+
+#controls { display: flex; gap: 15px; z-index: 25; pointer-events: auto; margin-top: 15px; }
+
+/* =========================================================
+   DARK MODE UI OVERRIDES
+   ========================================================= */
+body.dark-mode-ui {
+    --paper-bg: #15171E;
+    --paper-card: #22252E;
+    --ink-black: #EAECEF;
+    --shadow-color: rgba(0, 0, 0, 0.5);
+}
+body.dark-mode-ui .sketch-btn { background: #2D313C; color: #EAECEF; box-shadow: 0 6px 0 rgba(0,0,0,0.2); }
+body.dark-mode-ui .sketch-btn:hover:not(:disabled) { box-shadow: 0 4px 0 rgba(0,0,0,0.2); }
+body.dark-mode-ui .app-input, body.dark-mode-ui .app-select { background: #1B1E26; color: #EAECEF; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+body.dark-mode-ui .app-input:focus { background: #2D313C; }
+body.dark-mode-ui .shop-item, body.dark-mode-ui .lore-entry { background: #22252E; border-color: rgba(255,255,255,0.05); box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+body.dark-mode-ui .progress-pill { background: rgba(255,255,255,0.1); color: #EAECEF; }
+body.dark-mode-ui .level-btn { color: #EAECEF !important; }
+body.dark-mode-ui .map-title-card { background: #22252E; color: #EAECEF; }
+
+/* =========================================================
+   TIME TRIALS & LEADERBOARDS
+   ========================================================= */
+.tt-lvl-btn {
+    background: var(--paper-card); border: 2px solid rgba(0,0,0,0.1); border-radius: 12px;
+    padding: 15px 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1.2rem;
+    color: var(--ink-black); cursor: pointer; transition: all 0.1s;
+}
+.tt-lvl-btn:hover { background: var(--primary); color: white; border-color: var(--primary); transform: translateY(-2px); }
+.tt-lvl-btn.active { background: #8E24AA; color: white; border-color: #8E24AA; box-shadow: inset 0 3px 6px rgba(0,0,0,0.3); }
+
+.leaderboard-entry {
+    display: flex; justify-content: space-between; padding: 10px; 
+    border-bottom: 1px solid rgba(0,0,0,0.1); font-family: 'Courier New', monospace; font-weight: 800;
+}
+.leaderboard-entry .rank { color: var(--primary); margin-right: 10px; }
+.leaderboard-entry.first-place { background: rgba(241, 196, 15, 0.1); border-radius: 8px; color: #D4AC0D; }
+
+/* =========================================================
+   MOBILE RESPONSIVENESS (PHONES & TABLETS)
+   ========================================================= */
+@media (max-width: 768px) {
+    /* 1. Un-squish Cards & Allow Safe Scrolling */
+    .app-card, .screen { padding: 20px !important; width: 95vw; max-height: 85dvh; }
+    .wide-screen { width: 95vw !important; }
+    
+    /* 2. Fluid Typography (Adapts perfectly to any screen width!) */
+    .accent-title { font-size: clamp(2rem, 8vw, 2.5rem) !important; }
+    #main-menu .accent-title { font-size: clamp(2.5rem, 12vw, 3.8rem) !important; line-height: 1 !important; }
+    .subtitle { font-size: 1rem !important; }
+    #lc-title { font-size: clamp(2rem, 8vw, 2.5rem) !important; }
+    #lc-stars { font-size: 3rem !important; margin: 0 !important; }
+    
+    /* 3. Time Trials - Stack the UI & Shrink Grid */
+    #time-trials-screen > div[style*="display: flex"] { flex-direction: column !important; gap: 10px !important; }
+    #tt-leaderboard { max-height: 150px !important; }
+    #tt-level-grid { gap: 5px !important; }
+    .tt-lvl-btn { padding: 10px 0; font-size: 0.9rem; }
+    #btn-start-time-trial { padding: 10px !important; font-size: 1.1rem !important; margin-top: 10px !important; }
+    
+    /* 4. Settings - Stack side-by-side dropdowns & buttons */
+    #settings-screen > div[style*="display:flex"] { flex-direction: column !important; gap: 10px !important; }
+    #settings-screen > div[style*="display:flex"] > div { width: 100% !important; margin: 0 !important; }
+    
+    /* 5. Level Complete & Modals - Stack buttons */
+    #level-complete-screen > div[style*="display:flex"] { flex-direction: column !important; gap: 10px !important; width: 100%; }
+    #btn-lc-next, #btn-lc-map { width: 100% !important; }
+    #custom-modal .app-card > div[style*="display:flex"] { flex-direction: column !important; width: 100%; }
+    #custom-modal button { width: 100% !important; }
+
+    /* 6. Game HUD - Safe stacking without bleeding onto canvas */
+    #hud { padding: 0 10px; margin-top: 5px; flex-direction: column; align-items: center; text-align: center; gap: 5px; }
+    #hud > div:nth-child(1) { width: 100%; }
+    #hud > div:nth-child(2) { flex-direction: row !important; align-items: center !important; justify-content: space-around; gap: 10px; width: 100%; }
+    #btn-hint { margin-top: 0 !important; }
+    #level-title { font-size: 1.6rem !important; }
+    #level-flavor { font-size: 0.85rem !important; }
+    #hud-timer { font-size: 1.4rem !important; margin-top: 0 !important;}
+    
+    /* 7. Constellation Map Tweaks */
+    .map-screen { padding: 10px !important; }
+    .map-header { margin-top: 5px; }
+    .map-title-card { padding: 8px 12px; }
+    #constellation-title { font-size: 1.6rem !important; }
+    #constellation-wrapper { height: 75dvh !important; margin-top: 10px !important; }
+    #btn-close-book { bottom: 10px !important; padding: 10px 20px !important; }
+
+    /* 8. Tutorial Font Shrinking */
+    .tutorial-card { padding: 20px !important; border-radius: 20px !important; max-height: 85dvh !important; }
+    .tutorial-title { font-size: 2.2rem !important; margin-bottom: 10px !important; }
+    .tutorial-text { font-size: 1.05rem !important; line-height: 1.4 !important; }
+}

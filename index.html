@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Starlight Connections</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+</head>
+<body class="theme-fundamentals">
+    <div id="loading-screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--paper-bg); z-index: 999999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.6s ease;">
+        <h1 style="font-family: 'Architects Daughter', cursive; font-size: 3rem; color: var(--primary); margin-bottom: 30px; text-shadow: 0 4px 10px rgba(0,0,0,0.1);">Celestial Sketchbook</h1>
+        <div style="width: 60%; max-width: 300px; height: 8px; background: rgba(0,0,0,0.1); border-radius: 4px; overflow: hidden; position: relative;">
+            <div id="loading-bar" style="width: 0%; height: 100%; background: var(--primary); transition: width 0.15s ease-out;"></div>
+        </div>
+        <p id="loading-text" style="font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 800; margin-top: 15px; opacity: 0.6;">Initializing Cosmos...</p>
+    </div>
+    <canvas id="weather-canvas" style="position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:2; pointer-events:none;"></canvas>
+
+    <div id="custom-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index:99999; align-items:center; justify-content:center;">
+        <div class="app-card" style="text-align:center; max-width:400px; width:90vw;">
+            <h2 id="modal-title" class="accent-title" style="font-size:3rem; margin-top:0; color:var(--primary);">Notice</h2>
+            <p id="modal-text" style="font-size:1.3rem; margin-bottom:20px; font-weight:800; color:var(--ink-black);"></p>
+            
+            <div id="modal-input-container" style="display:none; margin: 20px 0; flex-direction:column; gap:10px;">
+                <input type="text" id="modal-input-user" class="app-input" placeholder="Username">
+                <input type="password" id="modal-input-pass" class="app-input" placeholder="Password" style="display:none;">
+            </div>
+
+            <div style="display:flex; justify-content:center; gap:15px; margin-top:20px;">
+                <button class="sketch-btn primary" id="btn-modal-close">OK</button>
+                <button class="sketch-btn sm" id="btn-modal-cancel" style="display:none;">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="ui-layer">
+        
+        <div id="main-menu" class="screen active">
+            <h1 class="accent-title" style="font-size:5rem; line-height:0.9;">Starlight<br>Connections</h1>
+            <p class="subtitle">The Celestial Sketchbook</p>
+            <div style="display:flex; flex-direction:column; gap:15px; width:100%; max-width:280px; margin-top:20px;">
+                <button class="sketch-btn primary" id="btn-open-sketchbook" style="padding:15px; font-size:1.6rem;">Play Game</button>
+                <button class="sketch-btn" id="btn-time-trials" style="background:#8E24AA; color:#fff; box-shadow: 0 6px 0 #4A148C;">⏱️ Time Trials</button>
+                <button class="sketch-btn" id="btn-shop">Stardust Shop</button>
+                <button class="sketch-btn" id="btn-journal">Inventor's Journal</button>
+                <button class="sketch-btn" id="btn-settings">Settings & Account</button>
+            </div>
+        </div>
+
+        <div id="shop-screen" class="screen wide-screen">
+            <h2 class="accent-title">Stardust Shop</h2>
+            <div class="stardust-pill">★ <span id="shop-stardust-display">0</span> Stardust</div>
+            
+            <div id="shop-items-container" class="scroll-container"></div>
+            <button class="sketch-btn" id="btn-back-main-from-shop" style="margin-top:15px;">Back to Menu</button>
+        </div>
+
+        <div id="journal-screen" class="screen wide-screen" style="max-width:800px;">
+            <h2 class="accent-title">Inventor's Journal</h2>
+            <div id="journal-entries-container" class="scroll-container" style="text-align:left;"></div>
+            <button class="sketch-btn" id="btn-back-main-from-journal" style="margin-top:15px;">Back to Menu</button>
+        </div>
+
+        <div id="settings-screen" class="screen wide-screen">
+            <h2 class="accent-title">Settings</h2>
+            
+            <div class="settings-group">
+                <h3>Cloud Sync ☁️</h3>
+                <p>Save your Stardust across all devices.</p>
+                <button id="btn-open-cloud-modal" class="sketch-btn primary">Manage Cloud Save</button>
+            </div>
+
+            <div class="settings-group">
+                <label>SFX Volume: <span id="sfx-val">100%</span></label>
+                <input type="range" id="sfx-slider" min="0" max="100" value="100" class="app-slider">
+            </div>
+
+            <div class="settings-group">
+                <label>UI Mode:</label>
+                <select id="ui-mode-select" class="app-select">
+                    <option value="light">Light Mode (Cozy Paper)</option>
+                    <option value="dark">Dark Mode (Midnight)</option>
+                </select>
+            </div>
+
+            <div style="display:flex; gap:15px; width:100%; margin-bottom:20px;">
+                <div class="settings-group" style="margin-bottom:0;">
+                    <label>Theme:</label>
+                    <select id="theme-select" class="app-select"></select>
+                </div>
+                <div class="settings-group" style="margin-bottom:0;">
+                    <label>Ink:</label>
+                    <select id="ink-select" class="app-select"></select>
+                </div>
+            </div>
+            
+            <div style="display:flex; gap:15px; margin-top:10px;">
+                <button class="sketch-btn sm" id="btn-replay-tutorial">Replay Tutorial</button>
+                <button class="sketch-btn sm danger" id="reset-btn">Erase Data</button>
+            </div>
+            <button class="sketch-btn primary" id="btn-back-main" style="margin-top:25px;">Save & Return</button>
+            
+            <div style="margin-top: 30px; text-align: center; opacity: 0.6; font-size: 0.9rem; font-weight: 800;">
+                <p style="margin: 5px 0;">Starlight Connections 5.1.0</p>
+                <p style="margin: 5px 0;">Support: starlightconnectionssupport@gmail.com</p>
+            </div>
+        </div>
+
+        <div id="level-select" class="screen map-screen">
+            <div class="map-header">
+                <button class="sketch-btn icon-btn" id="btn-prev-star">❮</button>
+                <div class="map-title-pill">
+                    <h2 id="constellation-title" class="accent-title" style="margin:0; font-size:2.5rem;">Constellation</h2>
+                    <p id="constellation-subtitle" style="margin:0; font-size:1rem; font-weight:800; opacity:0.7;"></p>
+                </div>
+                <button class="sketch-btn icon-btn" id="btn-next-star">❯</button>
+            </div>
+            
+            <div id="constellation-wrapper">
+                <canvas id="constellation-canvas"></canvas>
+                <div id="level-grid-container"></div>
+            </div>
+            
+            <button class="sketch-btn sm" id="btn-close-book" style="position:absolute; bottom:30px; z-index:10; width:auto; padding:10px 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">Return to Menu</button>
+        </div>
+
+        <div id="level-complete-screen" class="screen app-card" style="padding:50px;">
+            <h2 id="lc-title" class="accent-title" style="font-size:4rem; color:var(--ink-black);">Sequence Cleared!</h2>
+            <div id="lc-stars" style="font-size:4rem; color:#f1c40f; letter-spacing:-2px; margin:10px 0;">★★★</div>
+            <div class="stardust-pill" id="lc-dust" style="margin:15px auto 30px auto; font-size:1.4rem;">+0 Stardust</div>
+            <div style="display:flex; gap:15px;">
+                <button class="sketch-btn primary" id="btn-lc-next" style="padding:15px 30px;">Next Level</button>
+                <button class="sketch-btn" id="btn-lc-map">Map</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="time-trials-screen" class="screen wide-screen" style="max-width: 800px;">
+        <h2 class="accent-title" style="color: #8E24AA;">Cosmic Time Trials</h2>
+        <p>Compete globally on 100 fixed grid layouts. Fastest times win.</p>
+        
+        <div style="display: flex; gap: 20px; width: 100%; margin-top: 15px;">
+            <div style="flex: 1; display:flex; flex-direction:column; gap:10px;">
+                <h3 style="margin:0;">Grid Size</h3>
+                <select id="tt-grid-select" class="app-select"></select>
+                
+                <h3 style="margin:10px 0 0 0;">Select Layout</h3>
+                <div id="tt-level-grid" style="display:grid; grid-template-columns: repeat(5, 1fr); gap:10px;"></div>
+
+                <button class="sketch-btn primary" id="btn-start-time-trial" style="margin-top: auto; padding:15px; font-size: 1.2rem; box-shadow: 0 6px 0 var(--primary-dark);">▶ Play Selected Trial</button>
+            </div>
+            
+            <div style="flex: 1; background: rgba(0,0,0,0.05); border-radius: 16px; padding: 15px; display:flex; flex-direction:column;">
+                <h3 style="margin:0 0 10px 0; text-align:center;">Global Top 10</h3>
+                <div id="tt-leaderboard" class="scroll-container" style="flex:1; max-height:250px;">
+                    <p style="text-align:center; opacity:0.6;">Select a layout to view records.</p>
+                </div>
+                
+                <div id="tt-personal-best" style="margin-top: 10px; padding-top: 10px; border-top: 2px dashed rgba(0,0,0,0.1); display: none;">
+                </div>
+            </div>
+        </div>
+        
+        <button class="sketch-btn" id="btn-back-main-from-tt" style="margin-top:25px;">Back to Menu</button>
+    </div>
+
+    <div id="game-container">
+        <div id="hud">
+            <div style="flex:1;">
+                <h2 id="level-title" class="accent-title" style="margin:0; font-size:2.5rem;">Level Title</h2>
+               <p id="level-flavor" style="margin:0; font-size:1.1rem; font-weight:700; opacity:0.8;"></p>
+               <div id="hud-timer" style="display:none; font-family:'Courier New', monospace; font-size:2rem; font-weight:900; color:var(--primary); margin-top:5px; text-shadow: 0 2px 5px rgba(0,0,0,0.2);">00:00.000</div>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:flex-end;">
+                <div class="progress-pill" id="fill-indicator">0% Filled</div>
+                <button class="sketch-btn sm" id="btn-hint" style="margin-top:8px;">🔭 Hint (<span id="hint-count">3</span>)</button>
+            </div>
+        </div>
+        
+        <div id="canvas-wrapper">
+            <canvas id="game-canvas"></canvas>
+            <canvas id="fx-canvas"></canvas>
+        </div>
+
+        <div id="controls">
+            <button class="sketch-btn sm" id="btn-restart">⟲ Restart</button>
+            <button class="sketch-btn sm" id="btn-back-index">☰ Map</button>
+        </div>
+    </div>
+
+<div id="cloud-modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); z-index: 10000; justify-content: center; align-items: center; backdrop-filter: blur(4px);">
+    
+    <div class="app-card" style="width: 320px; padding: 30px; text-align: center; position: relative; display: flex; flex-direction: column; gap: 15px;">
+        
+        <button id="btn-close-cloud-modal" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--ink-black); line-height: 1;">✖</button>
+        
+        <h2 style="margin: 0; color: var(--ink-black);">Cloud Sync ☁️</h2>
+        
+        <div id="logged-out-ui">
+            <p style="margin-top: 0; font-size: 0.9em; color: var(--ink-black);">Log in to sync your progress.</p>
+            <input type="email" id="cloud-email" placeholder="Email Address" class="sketch-input" style="display: block; margin-bottom: 12px; width: 100%; box-sizing: border-box;">
+            <input type="password" id="cloud-password" placeholder="Password" class="sketch-input" style="display: block; margin-bottom: 20px; width: 100%; box-sizing: border-box;">
+            
+            <button id="btn-cloud-login" class="sketch-btn primary" style="width: 100%; margin-bottom: 10px;">Log In</button>
+            <button id="btn-cloud-signup" class="sketch-btn" style="width: 100%;">Create Account</button>
+        </div>
+
+        <div id="logged-in-ui" style="display: none;">
+            <p style="color: var(--ink-black);">✅ Connected as:<br><b id="user-email-display">Creator</b></p>
+            <button id="btn-cloud-logout" class="sketch-btn" style="width: 100%; margin-top: 15px;">Log Out</button>
+        </div>
+        
+    </div>
+</div>
+
+ <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+
+<script src="game.js"></script>
+</body>
+</html>
